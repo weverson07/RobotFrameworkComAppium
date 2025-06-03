@@ -1,20 +1,20 @@
-name: 🤖 Pipeline Robot + Appium + API
+name: 🤖 Pipeline Robot Framework + Envio SCP
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
   pull_request:
 
 jobs:
-  test:
-    name: 🚀 Executar Testes Robot Framework
+  robot-test:
     runs-on: ubuntu-latest
 
     steps:
       - name: 📥 Checkout do código
         uses: actions/checkout@v3
 
-      - name: 🐍 Configurar Python
+      - name: 🐍 Configurar Python 3.11
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
@@ -24,25 +24,38 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: "🌐 Iniciar WebDriver (ex: Chrome)"
-        run: |
-          sudo apt-get install -y xvfb
-          nohup Xvfb :99 & export DISPLAY=:99
-
-      - name: 📱 Iniciar Appium (modo headless)
-        run: |
-          npm install -g appium
-          nohup appium &
-
-      - name: 🤖 Executar Testes (Robot Framework)
+      - name: 🚀 Executar testes Robot Framework
         run: |
           robot -d output tests/
 
-      - name: 📤 Upload dos Relatórios
-        uses: actions/upload-artifact@v2.3.1
-        with:
-          name: robot-report
-          path: output/
+      - name: 🔐 Configurar chave SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        run: |
+          mkdir -p ~/.ssh
+          printf "%s\n" "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $REMOTE_HOST >> ~/.ssh/known_hosts
 
-      - name: ✅ Finalizado com sucesso
-        run: echo "Todos os testes foram executados com sucesso 🚀"
+      - name: 🔍 Verificar Secrets (debug)
+        env:
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
+        run: |
+          echo "REMOTE_USER está definido? ${REMOTE_USER:+Sim}"
+          echo "REMOTE_HOST está definido? ${REMOTE_HOST:+Sim}"
+          echo "REMOTE_PATH está definido? ${REMOTE_PATH:+Sim}"
+
+      - name: 📤 Enviar relatórios via SCP
+        env:
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
+        shell: bash
+        run: |
+          scp -r output/* $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH
+
+      - name: ✅ Finalizado
+        run: echo "Testes finalizados e relatório enviado com sucesso! 🚀"
