@@ -7,43 +7,52 @@ on:
 
 jobs:
   test:
-    name: 🚀 Executar Testes Robot Framework
+    name: 🚀 Executar testes Robot Framework + Appium + API
     runs-on: ubuntu-latest
 
     steps:
-      - name: "📥 Checkout do código"
+      - name: 📥 Checkout do código
         uses: actions/checkout@v3
 
-      - name: "🐍 Configurar Python"
+      - name: 🐍 Configurar Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
-      - name: "📦 Instalar dependências"
+      - name: 📦 Instalar dependências
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: "🌐 Iniciar WebDriver (ex: Chrome)"
+      - name: 🌐 Iniciar WebDriver (Chrome headless)
         run: |
           sudo apt-get install -y xvfb
           nohup Xvfb :99 &
           export DISPLAY=:99
 
-      - name: "📱 Iniciar Appium (modo headless)"
+      - name: 📱 Iniciar Appium (modo headless)
         run: |
           npm install -g appium
           nohup appium &
 
-      - name: "🤖 Executar Testes (Robot Framework)"
+      - name: 🤖 Executar testes Robot Framework
         run: |
           robot -d output tests/
 
-      - name: "📤 Upload dos Relatórios"
-        uses: actions/upload-artifact@v3
+      - name: 📤 Upload Relatórios Robot (HTML e XML)
+        uses: actions/upload-artifact@v2
         with:
-          name: robot-report
+          name: Relatorios-Robot-Framework
+          path: |
+            output/log.html
+            output/report.html
+            output/output.xml
+
+      - name: 📂 Upload Pasta Completa de Resultados
+        uses: actions/upload-artifact@v2
+        with:
+          name: resultados-completos
           path: output/
 
-      - name: "✅ Finalizado com sucesso"
-        run: echo "Todos os testes foram executados com sucesso 🚀"
+      - name: ✅ Finalizado com sucesso
+        run: echo "✅ Todos os testes foram executados com sucesso!"
