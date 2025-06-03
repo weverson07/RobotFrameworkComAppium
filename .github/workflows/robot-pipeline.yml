@@ -1,0 +1,42 @@
+name: 🤖 Pipeline Robot Framework
+
+on: [push, pull_request]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    services:
+      appium:
+        image: appium/appium
+        ports:
+          - 4723:4723
+
+    steps:
+      - name: 📥 Checkout do Repositório
+        uses: actions/checkout@v3
+
+      - name: 🐍 Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: 📦 Instalar Dependências
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 🔗 Executar Testes de API
+        run: robot -d output tests/api
+
+      - name: 🌍 Executar Testes Web
+        run: robot -d output tests/web
+
+      - name: 📲 Executar Testes Mobile
+        run: robot -d output tests/mobile
+
+      - name: 📤 Upload do Relatório
+        uses: actions/upload-artifact@v3
+        with:
+          name: robot-reports
+          path: output/

@@ -1,0 +1,23 @@
+1740369625523	geckodriver	INFO	Listening on 127.0.0.1:57300
+1740369626067	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... s" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/xp/00jqlm2n27s6rtf4m6zgz1z40000gp/T/rust_mozprofilePP6cLj"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1740369628069	Marionette	INFO	Marionette enabled
+console.error: "Warning: unrecognized command line flag" "-remote-allow-hosts"
+1740369630267	Marionette	INFO	Listening on port 57307
+Read port: 57307
+WebDriver BiDi listening on ws://127.0.0.1:57301
+1740369630955	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+2025-02-24 01:00:34.410 firefox[79146:2564639] ASB: LNW <GeckoNSApplication: 0x1010f47c0> <ToolbarWindow: 0x102ac9b30> <NSThemeFrame: 0x101022800> <_NSViewBackingLayer: 0x127647880>
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://opensource-demo.orangehrmlive.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://opensource-demo.orangehrmlive.com."
+JavaScript error: , line 0: uncaught exception: Object
+JavaScript error: , line 0: uncaught exception: Object
+JavaScript error: , line 0: uncaught exception: Object
+JavaScript error: , line 0: uncaught exception: Object
+JavaScript error: , line 0: uncaught exception: Object
+JavaScript error: , line 0: uncaught exception: Object
+JavaScript error: , line 0: uncaught exception: Object
+JavaScript error: , line 0: uncaught exception: Object
+JavaScript error: resource://gre/actors/FormHandlerChild.sys.mjs, line 103: InvalidStateError: JSWindowActorChild.document getter: Cannot access property 'document' after actor 'FormHandler' has been destroyed
+1740369679620	Marionette	INFO	Stopped listening on port 57307
