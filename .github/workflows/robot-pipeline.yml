@@ -1,42 +1,48 @@
-name: 🤖 Pipeline Robot Framework
+name: 🤖 Pipeline Robot + Appium + API
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
 
 jobs:
-  run-tests:
+  test:
+    name: 🚀 Executar Testes Robot Framework
     runs-on: ubuntu-latest
 
-    services:
-      appium:
-        image: appium/appium
-        ports:
-          - 4723:4723
-
     steps:
-      - name: 📥 Checkout do Repositório
+      - name: 📥 Checkout do código
         uses: actions/checkout@v3
 
       - name: 🐍 Configurar Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
-      - name: 📦 Instalar Dependências
+      - name: 📦 Instalar dependências
         run: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: 🔗 Executar Testes de API
-        run: robot -d output tests/api
+      - name: 🌐 Iniciar WebDriver (ex: Chrome)
+        run: |
+          sudo apt-get install -y xvfb
+          nohup Xvfb :99 & export DISPLAY=:99
 
-      - name: 🌍 Executar Testes Web
-        run: robot -d output tests/web
+      - name: 📱 Iniciar Appium (modo headless)
+        run: |
+          npm install -g appium
+          nohup appium &
 
-      - name: 📲 Executar Testes Mobile
-        run: robot -d output tests/mobile
+      - name: 🤖 Executar Testes (Robot Framework)
+        run: |
+          robot -d output tests/
 
-      - name: 📤 Upload do Relatório
+      - name: 📤 Upload dos Relatórios
         uses: actions/upload-artifact@v3
         with:
-          name: robot-reports
+          name: robot-report
           path: output/
+
+      - name: ✅ Finalizado com sucesso
+        run: echo "Todos os testes foram executados com sucesso 🚀"
