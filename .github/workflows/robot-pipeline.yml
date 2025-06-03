@@ -1,52 +1,48 @@
-name: Run Robot Framework Tests
+name: 🤖 Pipeline Robot + Appium + API
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '0 17 * * *'
+  push:
+    branches: [ master ]
+  pull_request:
 
 jobs:
   test:
-    runs-on: macos-latest
+    name: 🚀 Executar Testes Robot Framework
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: 📥 Checkout do código
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: 🐍 Configurar Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
-      - name: Install dependencies
+      - name: 📦 Instalar dependências
         run: |
           python -m pip install --upgrade pip
-          # Install additional dependencies if needed
           pip install -r requirements.txt
 
-      - name: Run Robot Framework tests
+      - name: "🌐 Iniciar WebDriver (ex: Chrome)"
         run: |
-          if ! robot --outputdir results --exclude skip tests/; then
-              echo "Robot Framework tests failed. Rerunning failed tests..."
-              if [ -f results/output.xml ]; then
-                  robot --rerunfailed results/output.xml --outputdir results_rerun tests/ || true
-                  if [ -f results_rerun/output.xml ]; then
-                      rebot --output results/output.xml --log results/log.html --report results/report.html --merge results/output.xml results_rerun/output.xml
-                  else
-                      echo "No output.xml file found from rerun. Skipping merge."
-                  fi
-              else
-                  echo "No output.xml file found. Cannot rerun failed tests."
-              fi
-          fi
+          sudo apt-get install -y xvfb
+          nohup Xvfb :99 & export DISPLAY=:99
 
-          echo "Script execution completed"
-        continue-on-error: true
+      - name: 📱 Iniciar Appium (modo headless)
+        run: |
+          npm install -g appium
+          nohup appium &
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: 🤖 Executar Testes (Robot Framework)
+        run: |
+          robot -d output tests/
+
+      - name: 📤 Upload dos Relatórios
+        uses: actions/upload-artifact@v2.3.1
         with:
-          path: ./results
-          name: robot-test-results
-          retention-days: 3
-          
+          name: robot-report
+          path: output/
+
+      - name: ✅ Finalizado com sucesso
+        run: echo "Todos os testes foram executados com sucesso 🚀"
