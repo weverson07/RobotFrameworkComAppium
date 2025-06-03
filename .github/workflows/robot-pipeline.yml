@@ -41,7 +41,7 @@ jobs:
           robot -d output tests/
 
       - name: "📤 Upload dos Relatórios"
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v3
         with:
           name: robot-report
           path: output/
