@@ -26,7 +26,6 @@ jobs:
 
       - name: "🌐 Iniciar WebDriver (ex: Chrome)"
         run: |
-          sudo apt-get update
           sudo apt-get install -y xvfb
           nohup Xvfb :99 &
           export DISPLAY=:99
