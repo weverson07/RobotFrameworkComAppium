@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    name: "🚀 Executar Testes Robot Framework"
+    name: 🚀 Executar Testes Robot Framework
     runs-on: ubuntu-latest
 
     steps:
@@ -26,8 +26,10 @@ jobs:
 
       - name: "🌐 Iniciar WebDriver (ex: Chrome)"
         run: |
+          sudo apt-get update
           sudo apt-get install -y xvfb
-          nohup Xvfb :99 & export DISPLAY=:99
+          nohup Xvfb :99 &
+          export DISPLAY=:99
 
       - name: "📱 Iniciar Appium (modo headless)"
         run: |
@@ -39,7 +41,7 @@ jobs:
           robot -d output tests/
 
       - name: "📤 Upload dos Relatórios"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: robot-report
           path: output/
