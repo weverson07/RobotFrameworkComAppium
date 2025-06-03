@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.2.2 (Python 3.11.9 on darwin)" generated="2025-06-02T18:14:01.854966" rpa="false" schemaversion="5">
+<suite id="s1" name="Orangetests" source="/Users/weversonsilva/Downloads/POC_robot_automation_/tests/web/Orangetests.robot">
+<test id="s1-t1" name="Login Test" line="8">
+<kw name="Iniciar sessão web" owner="HOOKS" type="SETUP">
+<kw name="Selecionar URL por ambiente" owner="HOOKS">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-06-02T18:14:04.710143" level="INFO">${BASE_URL} = https://opensource-demo.orangehrmlive.com/web/index.php/auth/login</msg>
+<var>${BASE_URL}</var>
+<arg>${URL_orange}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-02T18:14:04.709314" elapsed="0.000976"/>
+</kw>
+<if>
+<branch type="IF" condition="'${AMBIENTE}' == 'umc'">
+<kw name="Set Test Variable" owner="BuiltIn">
+<arg>${BASE_URL}</arg>
+<arg>${BASE_URL}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="NOT RUN" start="2025-06-02T18:14:04.711461" elapsed="0.000127"/>
+</kw>
+<status status="NOT RUN" start="2025-06-02T18:14:04.710675" elapsed="0.035958"/>
+</branch>
+<branch type="ELSE IF" condition="'${AMBIENTE}' == 'orange'">
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2025-06-02T18:14:04.763022" level="INFO">${BASE_URL} = https://opensource-demo.orangehrmlive.com/web/index.php/auth/login</msg>
+<arg>${BASE_URL}</arg>
+<arg>${URL_orange}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2025-06-02T18:14:04.756373" elapsed="0.006864"/>
+</kw>
+<status status="PASS" start="2025-06-02T18:14:04.753999" elapsed="0.009455"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" owner="BuiltIn">
+<arg>Ambiente ${AMBIENTE} não encontrado.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-06-02T18:14:04.764084" elapsed="0.000107"/>
+</kw>
+<status status="NOT RUN" start="2025-06-02T18:14:04.763620" elapsed="0.000736"/>
+</branch>
+<status status="PASS" start="2025-06-02T18:14:04.710589" elapsed="0.053891"/>
+</if>
+<arg>${AMBIENTE}</arg>
+<status status="PASS" start="2025-06-02T18:14:04.694907" elapsed="0.069794"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:14:04.766627" level="INFO">Opening browser 'firefox' to base url 'None'.</msg>
+<msg time="2025-06-02T18:14:36.924563" level="WARN">The geckodriver version (0.34.0) detected in PATH at /usr/local/bin/geckodriver might not be compatible with the detected firefox version (136.0.4); currently, geckodriver 0.36.0 is recommended for firefox 136.*, so it is advised to delete the driver in PATH and retry</msg>
+<arg>browser=${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2025-06-02T18:14:04.765710" elapsed="41.388123"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-06-02T18:14:46.156441" level="INFO">{'include': [], 'exclude': [], 'skip': [], 'skip_on_failure': [], 'console_width': 78}</msg>
+<arg>${OPTIONS}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-06-02T18:14:46.155269" elapsed="0.001431"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2025-06-02T18:14:46.157297" elapsed="0.005550"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:14:46.164315" level="INFO">Opening url 'https://opensource-demo.orangehrmlive.com/web/index.php/auth/login'</msg>
+<arg>${URL_orange}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-06-02T18:14:46.163505" elapsed="5.204438"/>
+</kw>
+<arg>firefox</arg>
+<arg>${OPTIONS}</arg>
+<arg>orange</arg>
+<status status="PASS" start="2025-06-02T18:14:04.692408" elapsed="46.676029"/>
+</kw>
+<kw name="Given Que abro o navegador na pagina orange" owner="orangeSteps">
+<kw name="Que abro o navegador na url orange" owner="orangePage">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${Username_element}</arg>
+<arg>3s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-06-02T18:14:51.372127" elapsed="0.762080"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:14:52.135719" level="INFO">Typing text 'Admin' into text field 'xpath=//*[@name="username"]'.</msg>
+<arg>${Username_element}</arg>
+<arg>${Username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-06-02T18:14:52.134869" elapsed="0.100212"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${Password_element}</arg>
+<arg>3s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-06-02T18:14:52.235788" elapsed="0.038425"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:14:52.275554" level="INFO">Typing text 'admin123' into text field 'xpath=//*[@name="password"]'.</msg>
+<arg>${Password_element}</arg>
+<arg>${Password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-06-02T18:14:52.274779" elapsed="0.138801"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${Btn_login}</arg>
+<arg>3s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-06-02T18:14:52.414753" elapsed="0.152661"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:14:52.569525" level="INFO">Clicking element 'xpath=//*[@type="submit"]'.</msg>
+<arg>${Btn_login}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-06-02T18:14:52.568249" elapsed="1.627306"/>
+</kw>
+<status status="PASS" start="2025-06-02T18:14:51.371018" elapsed="2.824872"/>
+</kw>
+<status status="PASS" start="2025-06-02T18:14:51.369669" elapsed="2.826461"/>
+</kw>
+<kw name="When Preencho todos os campos de cadastro" owner="orangeSteps">
+<kw name="Clico no campos de preenchimento" owner="orangePage">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${Cadastra_user}</arg>
+<arg>3s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-06-02T18:14:54.200576" elapsed="0.602336"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:14:54.804120" level="INFO">Clicking element 'xpath=//*[@class="oxd-main-menu-item-wrapper"]'.</msg>
+<arg>${Cadastra_user}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-06-02T18:14:54.803493" elapsed="2.205156"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${Btn_Add_user}</arg>
+<arg>timeout=3s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-06-02T18:14:57.009005" elapsed="0.567330"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:14:57.577253" level="INFO">Clicking element 'xpath=//*[text()=" Add "]'.</msg>
+<arg>${Btn_Add_user}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-06-02T18:14:57.576750" elapsed="1.127081"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${dropdown_1}</arg>
+<arg>3s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-06-02T18:14:58.704440" elapsed="0.576632"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:14:59.281851" level="INFO">Clicking element 'xpath=//*[@class="oxd-select-text-input"]'.</msg>
+<arg>${dropdown_1}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-06-02T18:14:59.281448" elapsed="0.246090"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:14:59.528583" level="INFO">Clicking element 'xpath=(//*[text()="Admin"])[3]'.</msg>
+<arg>${Selec_dropdown_1}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-06-02T18:14:59.528056" elapsed="0.230674"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:14:59.760076" level="INFO">Sending key(s) ('Thomas Benny',) to xpath=//*[@class="oxd-autocomplete-wrapper"] element.</msg>
+<msg time="2025-06-02T18:15:00.081591" level="INFO">Sending keys Thomas Benny</msg>
+<arg>${Selec_List}</arg>
+<arg>Thomas Benny</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2025-06-02T18:14:59.759239" elapsed="0.463938"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>1.5s</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2025-06-02T18:15:00.223557" elapsed="0.000427"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:15:00.224579" level="INFO">Clicking element 'xpath=//div[contains(@class, 'oxd-autocomplete-dropdown')]'.</msg>
+<arg>${Selec_list_op}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-06-02T18:15:00.224241" elapsed="3.241962"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:15:03.467110" level="INFO">Clicking element '(//*[@class="oxd-select-wrapper"])[2]'.</msg>
+<arg>${dropdown_2}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-06-02T18:15:03.466656" elapsed="3.249362"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:15:06.718241" level="INFO">Clicking element '//*[text()="Enabled"]'.</msg>
+<arg>${dropdown_3}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-06-02T18:15:06.717087" elapsed="3.246395"/>
+</kw>
+<kw name="First Name" owner="FakerLibrary">
+<msg time="2025-06-02T18:15:09.964637" level="INFO">${email} = Victoria</msg>
+<var>${email}</var>
+<status status="PASS" start="2025-06-02T18:15:09.963904" elapsed="0.000800"/>
+</kw>
+<kw name="Last Name" owner="FakerLibrary">
+<msg time="2025-06-02T18:15:09.965562" level="INFO">${sobrenome} = Orr</msg>
+<var>${sobrenome}</var>
+<status status="PASS" start="2025-06-02T18:15:09.964951" elapsed="0.000676"/>
+</kw>
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2025-06-02T18:15:09.966275" level="INFO">${nome_completo} = Victoria Orr</msg>
+<var>${nome_completo}</var>
+<arg>${email}</arg>
+<arg>${sobrenome}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2025-06-02T18:15:09.965900" elapsed="0.000432"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:15:09.966951" level="INFO">Typing text 'Victoria Orr' into text field '(//*[@class="oxd-input oxd-input--active"])[2]'.</msg>
+<arg>${name_user}</arg>
+<arg>${nome_completo}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-06-02T18:15:09.966584" elapsed="4.567886"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:15:14.535780" level="INFO">Typing text 'TesteAutomação1' into text field '(//*[@type="password"])[1]'.</msg>
+<arg>${cad_senha}</arg>
+<arg>TesteAutomação1</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-06-02T18:15:14.535101" elapsed="4.557447"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:15:19.094887" level="INFO">Typing text 'TesteAutomação1' into text field '(//*[@type="password"])[2]'.</msg>
+<arg>${confirma_senha}</arg>
+<arg>TesteAutomação1</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-06-02T18:15:19.093638" elapsed="4.552221"/>
+</kw>
+<status status="PASS" start="2025-06-02T18:14:54.199328" elapsed="29.446789"/>
+</kw>
+<status status="PASS" start="2025-06-02T18:14:54.197288" elapsed="29.448987"/>
+</kw>
+<kw name="Then Clico no botão salvar novo usuario pagina" owner="orangeSteps">
+<kw name="Clico no botão salvar novo usuario" owner="orangePage">
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>1.0s</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2025-06-02T18:15:23.649108" elapsed="0.000523"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:15:23.650235" level="INFO">Clicking element 'xpath=//button[@class="oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space"]'.</msg>
+<arg>${btn_save}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-06-02T18:15:23.649916" elapsed="2.236963"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2025-06-02T18:15:26.985164" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2025-06-02T18:15:25.887627" elapsed="1.097755"/>
+</kw>
+<status status="PASS" start="2025-06-02T18:15:23.647618" elapsed="3.337969"/>
+</kw>
+<status status="PASS" start="2025-06-02T18:15:23.646861" elapsed="3.338881"/>
+</kw>
+<kw name="Finalizar sessão web" owner="HOOKS" type="TEARDOWN">
+<kw name="Close All Browsers" owner="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2025-06-02T18:15:26.987351" elapsed="2.829494"/>
+</kw>
+<status status="PASS" start="2025-06-02T18:15:26.986427" elapsed="2.830679"/>
+</kw>
+<doc>Teste para realização de Login</doc>
+<status status="PASS" start="2025-06-02T18:14:04.675287" elapsed="85.142132"/>
+</test>
+<status status="PASS" start="2025-06-02T18:14:01.857630" elapsed="87.962054"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Orangetests" id="s1" pass="1" fail="0" skip="0">Orangetests</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2025-06-02T18:14:36.924563" level="WARN">The geckodriver version (0.34.0) detected in PATH at /usr/local/bin/geckodriver might not be compatible with the detected firefox version (136.0.4); currently, geckodriver 0.36.0 is recommended for firefox 136.*, so it is advised to delete the driver in PATH and retry</msg>
+</errors>
+</robot>
