@@ -1,4 +1,4 @@
-name: 🤖 Pipeline Robot + Appium + API
+name: "🤖 Pipeline Robot + Appium + API"
 
 on:
   push:
@@ -7,52 +7,42 @@ on:
 
 jobs:
   test:
-    name: 🚀 Executar testes Robot Framework + Appium + API
+    name: "🚀 Executar Testes Robot Framework"
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout do código
+      - name: "📥 Checkout do código"
         uses: actions/checkout@v3
 
-      - name: 🐍 Configurar Python
+      - name: "🐍 Configurar Python"
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
-      - name: 📦 Instalar dependências
+      - name: "📦 Instalar dependências"
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: 🌐 Iniciar WebDriver (Chrome headless)
+      - name: "🌐 Iniciar WebDriver (ex: Chrome)"
         run: |
           sudo apt-get install -y xvfb
-          nohup Xvfb :99 &
-          export DISPLAY=:99
+          nohup Xvfb :99 & export DISPLAY=:99
 
-      - name: 📱 Iniciar Appium (modo headless)
+      - name: "📱 Iniciar Appium (modo headless)"
         run: |
           npm install -g appium
           nohup appium &
 
-      - name: 🤖 Executar testes Robot Framework
+      - name: "🤖 Executar Testes (Robot Framework)"
         run: |
           robot -d output tests/
 
-      - name: 📤 Upload Relatórios Robot (HTML e XML)
-        uses: actions/upload-artifact@v2
+      - name: "📤 Upload dos Relatórios"
+        uses: actions/upload-artifact@v2.3.1
         with:
-          name: Relatorios-Robot-Framework
-          path: |
-            output/log.html
-            output/report.html
-            output/output.xml
-
-      - name: 📂 Upload Pasta Completa de Resultados
-        uses: actions/upload-artifact@v2
-        with:
-          name: resultados-completos
+          name: robot-report
           path: output/
 
-      - name: ✅ Finalizado com sucesso
-        run: echo "✅ Todos os testes foram executados com sucesso!"
+      - name: "✅ Finalizado com sucesso"
+        run: echo "Todos os testes foram executados com sucesso 🚀"
